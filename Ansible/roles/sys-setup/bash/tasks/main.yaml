@@ -1,0 +1,9 @@
+﻿---
+- name: Bash setup
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Configure bashrc
+      copy:
+        src: files/bashrc.dot
+        dest: ~/.bashrc

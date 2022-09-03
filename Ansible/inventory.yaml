@@ -1,0 +1,4 @@
+machines:
+  hosts:
+    control:
+      ansible_host: localhost

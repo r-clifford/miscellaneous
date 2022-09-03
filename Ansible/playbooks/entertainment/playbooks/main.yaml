@@ -1,0 +1,11 @@
+---
+- name: Install entertainment
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Install spotify
+      ansible.builtin.package:
+        name: lpf-spotify-client
+    - name: Install discord
+      ansible.builtin.package:
+        name: discord

@@ -1,0 +1,13 @@
+---
+- name: "Install Packages"
+  hosts: localhost
+  connection: local
+  tasks:
+    name: Install neovim
+    ansible.builtin.dnf:
+      name: neovim
+      state: latest
+    name: Install vscode
+    ansible.builtin.dnf:
+      name: code
+      state: latest

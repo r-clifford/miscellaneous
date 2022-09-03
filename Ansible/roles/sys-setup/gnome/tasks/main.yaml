@@ -1,0 +1,40 @@
+﻿---
+- name: Gnome setup
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Install npm
+      ansible.builtin.package:
+        name: npm
+      become: yes
+    - name: Clone material shell
+      git:
+        repo: https://github.com/material-shell/material-shell.git
+        dest: /tmp/material
+    - name: Install material shell
+      community.general.make:
+        chdir: /tmp/material
+        target: install
+    - name: Install gnome-tweaks
+      ansible.builtin.package:
+        name: gnome-tweaks
+      become: yes
+    - name: Install gnome-extensions
+      ansible.builtin.package:
+        name: gnome-extensions-app
+      become: yes
+    - name: Clone forge tiling
+      git:
+        repo: https://github.com/jmmaranan/forge.git
+        dest: /tmp/forge
+        single_branch: yes
+        version: main
+        force: yes
+    - name: Build forge tiling
+      community.general.make:
+        chdir: /tmp/forge
+        target: build
+    - name: Install forge tiling
+      community.general.make:
+        chdir: /tmp/forge
+        target: install

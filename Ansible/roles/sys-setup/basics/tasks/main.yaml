@@ -1,0 +1,103 @@
+---
+- name: Install basics
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Install neovim
+      ansible.builtin.dnf:
+        name: neovim
+        state: present
+    - name: Install nnn
+      ansible.builtin.package:
+        name: nnn
+        state: present
+    - name: Enable RPM Fusion Free
+      dnf:
+        name: https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ansible_distribution_major_version}}.noarch.rpm
+        state: present
+        disable_gpg_check: yes
+      when: ansible_distribution == "Fedora"
+    - name: Enable RPM Fusion NonFree
+      ansible.builtin.dnf:
+        name: https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ansible_distribution_major_version}}.noarch.rpm
+        state: present
+        disable_gpg_check: yes
+      when: ansible_distribution == "Fedora"
+    - name: Install fira mono
+      ansible.builtin.package:
+        name: mozilla-fira-mono-fonts
+    - name: Install fira sans
+      ansible.builtin.package:
+        name: mozilla-fira-sans-fonts
+    - name: Install fira code
+      ansible.builtin.package:
+        name: fira-code-fonts
+    - name: Import vscode repo
+      ansible.builtin.yum_repository:
+        name: vscode
+        description: MS VScode repo
+        baseurl: https://packages.microsoft.com/yumrepos/vscode
+        gpgcheck: yes
+        gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+
+    - name: Install vscode
+      ansible.builtin.package:
+        state: present
+        name: code
+    - name: Install ag
+      ansible.builtin.package:
+        name: ag
+        state: present
+    - name: Install zoxide
+      ansible.builtin.package:
+        name: zoxide
+        state: present
+    - name: Install fzf
+      ansible.builtin.package:
+        name: fzf
+        state: present
+    - name: Install GNU Parallel
+      ansible.builtin.package:
+        name: parallel
+    - name: Install rg
+      ansible.builtin.package:
+        name: ripgrep
+    - name: Install screen
+      ansible.builtin.package:
+        name: screen
+    - name: Install tldr
+      ansible.builtin.package:
+        name: tldr
+    - name: Install bat
+      ansible.builtin.package:
+        name: bat
+    - name: Install exa
+      ansible.builtin.package:
+        name: exa
+    - name: Install glances
+      ansible.builtin.package:
+        name: glances
+    - name: Install nmtui
+      ansible.builtin.package:
+        name: NetworkManager-tui
+    - name: Install jq
+      ansible.builtin.package:
+        name: jq
+    - name: Install shellcheck
+      ansible.builtin.package:
+        name: ShellCheck
+    - name: Install qalc
+      ansible.builtin.package:
+        name: qalc
+    - name: Install rclone
+      ansible.builtin.package:
+        name: rclone
+    - name: Install tilix
+      ansible.builtin.package:
+        name: tilix
+    - name: Install ansible
+      ansible.builtin.package:
+        name: ansible
+    - name: Install ansible lint
+      ansible.builtin.package:
+        name: python3-ansible-lint
